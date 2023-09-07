@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.models import Product, Blog
@@ -48,6 +49,12 @@ class BlogCreateView(CreateView):
     fields = ['title', 'body', 'image', 'creation_date', 'is_published', 'views_count']
     success_url = reverse_lazy('list')
 
+    def form_valid(self, form):
+        if form.is_valid():
+            blog = form.save()
+            blog.slug = slugify(blog.title)
+            blog.save()
+        return super().form_valid(form)
 class BlogUpdateView(UpdateView):
     model = Blog
     fields = ['title', 'body', 'image', 'creation_date', 'is_published', 'views_count']
