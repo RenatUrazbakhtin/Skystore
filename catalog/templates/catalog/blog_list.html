@@ -12,7 +12,7 @@
                 <img src="{{ object.image|media }}" class="img-thumbnail" alt="...">
                 <p class="text-center">{{object.body}}</p>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'view_blog' object.pk %}">Посмотреть</a>
-                <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Редактировать</a>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'update' object.pk %}">Редактировать</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Удалить</a>
             </div>
         </div>
