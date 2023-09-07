@@ -1,0 +1,22 @@
+{% extends 'catalog/base.html' %}
+{% load my_tag %}
+{% block content %}
+<div class="row text-center">
+    {% for object in object_list %}
+    <div class="col-3">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">{{object}}</h4>
+            </div>
+            <div class="card-body">
+                <img src="{{ object.image|media }}" class="img-thumbnail" alt="...">
+                <p class="text-center">{{object.body}}</p>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'view_blog' object.pk %}">Посмотреть</a>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Редактировать</a>
+                <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Удалить</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
