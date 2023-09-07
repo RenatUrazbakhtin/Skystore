@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from catalog.models import Product, Category
+from catalog.models import Product, Category, Blog
+
 
 # Register your models here.
 # admin.site.register(Student)
@@ -14,3 +15,7 @@ class ProductAdmin(admin.ModelAdmin):
 @admin.register(Category)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('id', 'name',)
+
+@admin.register(Blog)
+class BlogAdmin(admin.ModelAdmin):
+    list_display = ('title', 'image',)
