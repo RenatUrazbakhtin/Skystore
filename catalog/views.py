@@ -1,14 +1,14 @@
 from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
 from catalog.models import Product
 
 
 # Create your views here.
-def home(request):
-    context = {
-        'object_list': Product.objects.all()
-    }
-    return render(request, 'catalog/home.html', context)
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/home.html'
 
 def contacts(request):
     if request.method == 'POST':
@@ -18,9 +18,7 @@ def contacts(request):
         print(f'There is a message:{message} from {name}, with phone {phone}')
     return render(request, 'catalog/contacts.html')
 
-def product(request, pk):
-    context = {
-        'object': Product.objects.get(pk=pk),
-        'title': f'Товар - {Product.name}',
-    }
-    return render(request, 'catalog/product.html', context)
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product.html'
