@@ -31,6 +31,11 @@ class ProductCreateView(CreateView):
     form_class = ProductForm
     success_url = reverse_lazy('home')
 
+class ProductUpdateView(UpdateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('home')
+
 class BlogListView(ListView):
     model = Blog
 
