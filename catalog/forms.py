@@ -3,7 +3,13 @@ from django import forms
 from catalog.models import Product
 forbidden_products = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
-class ProductForm(forms.ModelForm):
+class StyleFormMixin:
+    def __init__(self, **args):
+        super().__init__(**args)
+        for field_name, field in self.fields.items():
+            field.widget.attrs['class'] = 'form-control'
+
+class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
         model = Product
         fields = ('name', 'description', 'image', 'category', 'price', 'creation_date')
