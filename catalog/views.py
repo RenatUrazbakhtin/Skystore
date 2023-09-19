@@ -3,6 +3,7 @@ from django.urls import reverse_lazy, reverse
 from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
+from catalog.forms import ProductForm
 from catalog.models import Product, Blog
 
 
@@ -25,6 +26,10 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product.html'
 
+class ProductCreateView(CreateView):
+    model = Product
+    form_class = ProductForm
+    success_url = reverse_lazy('home')
 
 class BlogListView(ListView):
     model = Blog
