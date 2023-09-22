@@ -1,6 +1,7 @@
 from django import forms
 
-from catalog.models import Product
+from catalog.models import Product, Version
+
 forbidden_products = ['казино', 'криптовалюта', 'крипта', 'биржа', 'дешево', 'бесплатно', 'обман', 'полиция', 'радар']
 
 class StyleFormMixin:
@@ -31,3 +32,11 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
                 raise forms.ValidationError(f'Описание продукта не должно содержать слово {item} ')
 
         return cleaned_data
+
+class VersionForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = Version
+        fields = '__all__'
+
+
+

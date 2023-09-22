@@ -1,20 +1,26 @@
 {% extends 'catalog/base.html' %}
 
 {% block content %}
-<div class="container">
-    <div class="row text-center">
-        <div class="col-3">
+<form method="post" class="row">
+    <div class="container">
+        <div class="col-12">
             <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                    <form method="post">
-                        {% csrf_token %}
-                        {{ form.as_p }}
-                        <button type="submit" class="btn btn-primary">Создать</button>
-                    </form>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Создать</button>
                 </div>
             </div>
         </div>
     </div>
-</div>
+<!--    <div class="row">-->
+<!--        <div class="card mb-4 box-shadow">-->
+<!--            {{ formset.management_form }}-->
+<!--            {% for form in formset.forms %}-->
+<!--                form.as_p-->
+<!--            {% endfor %}-->
+<!--        </div>-->
+<!--    </div>-->
+</form>
 {% endblock %}
 
