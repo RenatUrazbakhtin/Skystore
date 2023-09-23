@@ -16,11 +16,7 @@
             <div class="card-body">
                 <h1 class="card-title pricing-card-title">{{object.price}}$</h1>
                 <p class="text-center">{{object.description | truncatechars:100}}</p>
-<!--                {% if object.version.active_version %}-->
-<!--                <p class="card-title pricing-card-title">{{is_active}}</p>-->
-<!--                {% endif %}-->
                 <a class="p-2 btn btn-outline-primary" href="{% url 'product' object.pk %}">Посмотреть</a>
-                <a class="p-2 btn btn-outline-primary" href="#">Купить</a>
                 <a class="p-2 btn btn-outline-primary" href="{% url 'update_product' object.pk %}">Редактировать</a>
             </div>
         </div>
