@@ -16,6 +16,7 @@
                     <p class="card-text">{{ object.description }}</p>
                     <p class="card-text-shadow">{{ object.creation_date }}</p>
                     <p class="card-text-shadow">{{ object.last_changes_date }}</p>
+                    <a class="p-2 btn btn-outline-primary" href="{% url 'version_detail' object.pk %}">Информация о версии продукта</a>
                 </div>
             </div>
         </div>
