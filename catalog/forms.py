@@ -38,5 +38,11 @@ class VersionForm(StyleFormMixin, forms.ModelForm):
         model = Version
         fields = '__all__'
 
+    def clean_is_active(self):
+        cleaned_data = self.object.cleaned_data['active_version']
+        if len(Version.objects.filter(active_version=True)) > 0 and cleaned_data is True:
+            raise forms.ValidationError('Одна версия должна быть активной')
+        return cleaned_data
+
 
 
