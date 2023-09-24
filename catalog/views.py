@@ -27,27 +27,18 @@ class ProductDetailView(DetailView):
     model = Product
     template_name = 'catalog/product.html'
 
+    def get_context_data(self, *args, **kwargs):
+        context_data = super().get_context_data(*args, **kwargs)
+        product_item = Product.objects.get(pk=self.kwargs.get('pk'))
+        context_data['object'] = product_item
+        context_data['title'] = f'{product_item.name}'
+        return context_data
+
 class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     success_url = reverse_lazy('home')
 
-    def get_context_data(self, **kwargs):
-        context_data = super().get_context_data(**kwargs)
-        VersionFormset = inlineformset_factory(Product, Version, form=VersionForm, extra=1)
-        if self.request.method == 'POST':
-            formset = VersionFormset(self.request.POST, instance=self.object)
-        else:
-            formset = VersionFormset(instance=self.object)
-
-        context_data['formset'] = formset
-        return context_data
-
-    def form_valid(self, form):
-        context_data = self.get_context_data()
-        formset = context_data['formset']
-        self.object = form.save()
-        return super().form_valid(form)
 class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
@@ -120,13 +111,3 @@ class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('list')
 
-# class VersionUpdateView(UpdateView):
-#     model = Version
-#     form_class = VersionForm
-#
-#     def get_success_url(self):
-#         return reverse('version_detail', args=[self.kwargs.get('pk')])
-#
-class VersionDetailView(DetailView):
-    model = Version
-    template_name = 'catalog/version_detail.html'
