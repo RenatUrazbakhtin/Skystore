@@ -8,7 +8,8 @@ class StyleFormMixin:
     def __init__(self, **args):
         super().__init__(**args)
         for field_name, field in self.fields.items():
-            field.widget.attrs['class'] = 'form-control'
+            if field_name != 'activae_version':
+                field.widget.attrs['class'] = 'form-control'
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
     class Meta:
