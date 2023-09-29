@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.views import View
 from django.views.generic import CreateView, TemplateView
 
 from config import settings
@@ -37,3 +38,11 @@ class RegisterView(CreateView):
 
         return redirect('users:email_sent')
 
+class UserConfirmEmailView(View):
+    def get(self, request, token):
+        user = User.objects.get(token=token)
+
+        user.is_active = True
+        user.token = None
+        user.save()
+        return redirect('users:login')
