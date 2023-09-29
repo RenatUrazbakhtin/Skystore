@@ -5,10 +5,10 @@ from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views import View
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 
 from config import settings
-from users.forms import UserRegisterForm
+from users.forms import UserRegisterForm, UserForm
 from users.models import User
 
 
@@ -54,3 +54,25 @@ class EmailConfirmationSentView(TemplateView):
         context = super().get_context_data(**kwargs)
         return context
 
+class UserUpdateView(UpdateView):
+    model = User
+    form_class = UserForm
+    template_name = 'users/profile.html'
+    success_url = reverse_lazy('catalog:home')
+    def get_object(self, queryset=None):
+        return self.request.user
+
+
+def generate_password(request):
+    new_password = secrets.token_hex(nbytes=8)
+    request.user.set_password(new_password)
+    request.user.save()
+
+    send_mail(
+        subject='Смена пароля',
+        message=f'Вы зарегистрировали новый пароль: {new_password}',
+        from_email=settings.EMAIL_HOST_USER,
+        recipient_list=[request.user.email]
+    )
+
+    return redirect(reverse('users:login'))
