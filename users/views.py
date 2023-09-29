@@ -46,3 +46,18 @@ class UserConfirmEmailView(View):
         user.token = None
         user.save()
         return redirect('users:login')
+
+class EmailConfirmationSentView(TemplateView):
+    template_name = 'users/email_sent.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+class EmailConfirmView(TemplateView):
+    template_name = 'users/verified.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Ваш электронный адрес активирован'
+        return context
