@@ -1,5 +1,7 @@
 from django.db import models
 
+from config import settings
+
 # Create your models here.
 NULLABLE = {'null': True, 'blank': True}
 
@@ -12,6 +14,7 @@ class Product(models.Model):
     creation_date = models.DateTimeField(verbose_name='дата создания', **NULLABLE)
     last_changes_date = models.DateTimeField(verbose_name='дата изменения', **NULLABLE)
 
+    creator = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='создатель')
     def __str__(self):
         return f'{self.name}'
 
