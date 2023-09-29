@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 
+import message_config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -139,6 +141,7 @@ LOGOUT_REDIRECT_URL = '/'
 
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'fuckup@oscarbot.com.ru'
-EMAIL_HOST_PASSWORD = 'AsTSNVv7pun9'
+EMAIL_HOST_USER = message_config.EMAIL_HOST_USER
+EMAIL_HOST_PASSWORD = message_config.EMAIL_HOST_PASSWORD
+
 EMAIL_USE_SSL = True
