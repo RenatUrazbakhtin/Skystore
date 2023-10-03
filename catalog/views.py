@@ -5,7 +5,8 @@ from django.utils.text import slugify
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 
 from catalog.forms import ProductForm, VersionForm
-from catalog.models import Product, Blog, Version
+from catalog.models import Product, Blog, Version, Category
+from catalog.services import get_product_categories
 
 
 # Create your views here.
@@ -118,4 +119,12 @@ class BlogUpdateView(UpdateView):
 class BlogDeleteView(DeleteView):
     model = Blog
     success_url = reverse_lazy('list')
+
+class CategoryListView(ListView):
+    model = Category
+
+    extra_context = {
+        'object_list': get_product_categories(),
+        'title': 'Категории'
+    }
 
